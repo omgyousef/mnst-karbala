@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة معاهد كربلاء الرقمية</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Tajawal', sans-serif; }
+    </style>
+</head>
+<body class="bg-[#0b1329] text-slate-100 min-h-screen relative overflow-x-hidden selection:bg-amber-500/30 selection:text-amber-400">
+
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[500px] bg-gradient-to-b from-blue-500/10 via-purple-500/5 to-transparent blur-3xl pointer-events-none z-0"></div>
+
+    <header class="border-b border-slate-800/80 bg-slate-900/40 backdrop-blur-md sticky top-0 z-40 transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3 space-x-reverse">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-orange-400 flex items-center justify-center shadow-lg shadow-amber-500/20">
+                    <span class="text-xl">🎓</span>
+                </div>
+                <div>
+                    <h1 class="text-base font-black text-white tracking-wide">منصة معاهد كربلاء</h1>
+                    <p class="text-[10px] text-slate-400 font-medium">الجداول الدراسية والتحديثات الحية</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <span id="current-institute-badge" class="text-xs font-bold text-amber-400 bg-amber-500/10 border border-amber-500/20 px-3 py-1.5 rounded-lg">تصفح عام للطلاب</span>
+                <button onclick="openTeacherModal()" class="flex items-center gap-1.5 bg-slate-800 border border-slate-700/80 text-xs font-bold text-slate-200 hover:text-white hover:bg-slate-700 hover:border-slate-600 px-3 py-1.5 rounded-lg shadow-sm transition-all duration-200">
+                    <span>🔐</span> دخول المدرس
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 py-8 relative z-10">
+        
+        <section id="institutes-section" class="space-y-6 animate-fade-in">
+            <div class="text-center space-y-2 max-w-md mx-auto">
+                <h2 class="text-2xl font-black text-white">اختر المعهد الدراسي الخاص بك</h2>
+                <p class="text-xs text-slate-400 leading-relaxed">يرجى تحديد المعهد لعرض المراحل الدراسية والجدول الزمني المحدث فورياً من الأساتذة</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
+                <div onclick="askForInstitutePassword('دار العلم')" class="group cursor-pointer bg-slate-900/40 border border-slate-800 hover:border-amber-500/50 p-5 rounded-2xl shadow-xl hover:shadow-amber-500/5 transition-all duration-300 relative overflow-hidden">
+                    <div class="absolute -right-4 -bottom-4 text-7xl opacity-5 group-hover:scale-110 transition-transform duration-300">📚</div>
+                    <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-xl mb-4 group-hover:bg-amber-500 group-hover:text-slate-950 transition-all duration-300">📖</div>
+                    <h3 class="font-bold text-base text-slate-100 group-hover:text-amber-400 transition-colors">معهد دار العلم</h3>
+                    <p class="text-xs text-slate-400 mt-1">حي الحسين / كربلاء</p>
+                </div>
+                <div onclick="askForInstitutePassword('الإسكان')" class="group cursor-pointer bg-slate-900/40 border border-slate-800 hover:border-emerald-500/50 p-5 rounded-2xl shadow-xl hover:shadow-emerald-500/5 transition-all duration-300 relative overflow-hidden">
+                    <div class="absolute -right-4 -bottom-4 text-7xl opacity-5 group-hover:scale-110 transition-transform duration-300">🏢</div>
+                    <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-xl mb-4 group-hover:bg-emerald-500 group-hover:text-slate-950 transition-all duration-300">🏫</div>
+                    <h3 class="font-bold text-base text-slate-100 group-hover:text-emerald-400 transition-colors">معهد الإسكان</h3>
+                    <p class="text-xs text-slate-400 mt-1">حي الإسكان / كربلاء</p>
+                </div>
+                <div onclick="askForInstitutePassword('الأوائل')" class="group cursor-pointer bg-slate-900/40 border border-slate-800 hover:border-blue-500/50 p-5 rounded-2xl shadow-xl hover:shadow-blue-500/5 transition-all duration-300 relative overflow-hidden">
+                    <div class="absolute -right-4 -bottom-4 text-7xl opacity-5 group-hover:scale-110 transition-transform duration-300">✨</div>
+                    <div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-xl mb-4 group-hover:bg-blue-500 group-hover:text-slate-950 transition-all duration-300">⭐</div>
+                    <h3 class="font-bold text-base text-slate-100 group-hover:text-blue-400 transition-colors">معهد الأوائل</h3>
+                    <p class="text-xs text-slate-400 mt-1">شارع السناتر / كربلاء</p>
+                </div>
+                <div onclick="askForInstitutePassword('بابليون')" class="group cursor-pointer bg-slate-900/40 border border-slate-800 hover:border-purple-500/50 p-5 rounded-2xl shadow-xl hover:shadow-purple-500/5 transition-all duration-300 relative overflow-hidden">
+                    <div class="absolute -right-4 -bottom-4 text-7xl opacity-5 group-hover:scale-110 transition-transform duration-300">🦁</div>
+                    <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-xl mb-4 group-hover:bg-purple-500 group-hover:text-slate-950 transition-all duration-300">🏛️</div>
+                    <h3 class="font-bold text-base text-slate-100 group-hover:text-purple-400 transition-colors">معهد بابليون</h3>
+                    <p class="text-xs text-slate-400 mt-1">حي البلدية / كربلاء</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="stages-section" class="hidden space-y-6 animate-fade-in">
+            <div class="flex items-center justify-between">
+                <button onclick="backToInstitutes()" class="text-xs font-bold text-slate-400 hover:text-white flex items-center gap-1 bg-slate-800/50 border border-slate-800 px-3 py-1.5 rounded-lg transition-colors">
+                    ← العودة للمعاهد
+                </button>
+                <h2 class="text-xl font-black text-white">اختر المرحلة الدراسية</h2>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div onclick="showTable('الأول متوسط')" class="cursor-pointer bg-slate-900/40 border border-slate-800 hover:border-amber-500/40 p-4 rounded-xl text-center hover:bg-slate-800/20 transition-all font-bold">الصف الأول متوسط</div>
+                <div onclick="showTable('الثاني متوسط')" class="cursor-pointer bg-slate-900/40 border border-slate-800 hover:border-amber-500/40 p-4 rounded-xl text-center hover:bg-slate-800/20 transition-all font-bold">الصف الثاني متوسط</div>
+                <div onclick="showTable('الثالث متوسط')" class="cursor-pointer bg-slate-900/40 border border-slate-800 hover:border-amber-500/40 p-4 rounded-xl text-center hover:bg-slate-800/20 transition-all font-bold text-amber-400 border-amber-500/20">الصف الثالث متوسط 🌟</div>
+                <div onclick="showTable('الرابع اعدادي')" class="cursor-pointer bg-slate-900/40 border border-slate-800 hover:border-blue-500/40 p-4 rounded-xl text-center hover:bg-slate-800/20 transition-all font-bold">الصف الرابع الإعدادي</div>
+                <div onclick="showTable('الخامس اعدادي')" class="cursor-pointer bg-slate-900/40 border border-slate-800 hover:border-blue-500/40 p-4 rounded-xl text-center hover:bg-slate-800/20 transition-all font-bold">الصف الخامس الإعدادي</div>
+                <div onclick="showTable('السادس اعدادي')" class="cursor-pointer bg-slate-900/40 border border-slate-800 hover:border-red-500/40 p-4 rounded-xl text-center hover:bg-slate-800/20 transition-all font-bold text-red-400 border-red-500/20">الصف السادس الإعدادي 🎯</div>
+            </div>
+        </section>
+
+        <section id="table-section" class="hidden space-y-6 animate-fade-in">
+            <div class="flex items-center justify-between">
+                <button onclick="backToStages()" class="text-xs font-bold text-slate-400 hover:text-white flex items-center gap-1 bg-slate-800/50 border border-slate-800 px-3 py-1.5 rounded-lg transition-colors">
+                    ← العودة للمراحل
+                </button>
+                <h2 id="table-title" class="text-base sm:text-lg font-black text-white">🗓️ جدول المحاضرات</h2>
+            </div>
+
+            <div class="bg-slate-900/40 border border-slate-800/80 rounded-2xl shadow-xl overflow-hidden backdrop-blur-sm">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-right border-collapse">
+                        <thead>
+                            <tr class="bg-slate-900/80 border-b border-slate-800 text-xs font-bold text-slate-400 tracking-wider">
+                                <th class="p-4">المادة الدراسية</th>
+                                <th class="p-4">توقيت المحاضرة</th>
+                                <th class="p-4">الدرس القادم</th>
+                                <th class="p-4">تنبيهات وملاحظات الأستاذ</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-body" class="divide-y divide-slate-800/40">
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="institute-auth-modal" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-800 w-full max-w-sm rounded-2xl p-6 space-y-4 shadow-2xl relative">
+            <button onclick="closeAuthModal()" class="absolute top-4 left-4 text-slate-400 hover:text-white text-lg">✕</button>
+            <div class="text-center space-y-1">
+                <h3 class="font-black text-lg text-white">تسجيل دخول الطالب</h3>
+                <p class="text-xs text-slate-400">مطلوب رمز الدخول لمعهد: <span id="auth-institute-name" class="text-amber-400 font-bold"></span></p>
+            </div>
+            <div class="space-y-3">
+                <input type="password" id="institute-password-input" placeholder="أدخل رمز المعهد السري..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-center text-white focus:outline-none focus:border-amber-500/50 transition-colors">
+                <button onclick="verifyInstitutePassword()" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-sm py-3 rounded-xl shadow-lg shadow-amber-500/10 transition-colors">دخول المنصة</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="teacher-modal" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-800 w-full max-w-md rounded-2xl p-6 shadow-2xl relative overflow-hidden">
+            <button onclick="closeTeacherModal()" class="absolute top-4 left-4 text-slate-400 hover:text-white text-lg">✕</button>
+            
+            <div id="teacher-login-form" class="space-y-4">
+                <div class="text-center space-y-1">
+                    <h3 class="font-black text-lg text-white">بوابة الأستاذ السحابية 🔒</h3>
+                    <p class="text-xs text-slate-400">تعديل جدول المواد المباشر في السحاب</p>
+                </div>
+                <div class="space-y-3 pt-2">
+                    <div>
+                        <label class="block text-xs font-medium text-slate-400 mb-1">اختر المادة التدريسية:</label>
+                        <select id="teacher-subject-select" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500/50">
+                            <option value="كيمياء">الكيمياء</option>
+                            <option value="فيزياء">الفيزياء</option>
+                            <option value="احياء">الأحياء</option>
+                            <option value="اللغة العربية">اللغة العربية</option>
+                            <option value="الاجتماعيات">الاجتماعيات</option>
+                            <option value="رياضيات">الرياضيات</option>
+                            <option value="انكليزي">اللغة الإنكليزية</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-400 mb-1">الرمز السري للمادة:</label>
+                        <input type="password" id="subject-password" placeholder="أدخل الرمز الخاص بالمدرس..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-center text-white focus:outline-none focus:border-amber-500/50">
+                    </div>
+                    <button onclick="verifyTeacher()" class="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 font-black text-sm py-3 rounded-xl shadow-lg transition-all duration-200 mt-2">تحقق وتعديل</button>
+                </div>
+            </div>
+
+            <div id="teacher-edit-form" class="hidden space-y-4">
+                <div class="text-center border-b border-slate-800 pb-3">
+                    <h3 class="font-black text-lg text-white">تعديل مادة: <span id="editing-subject-title" class="text-amber-400"></span></h3>
+                    <p class="text-[11px] text-slate-400 mt-0.5">سيتم النشر والمزامنة حياً لجميع الطلاب فور الحفظ</p>
+                </div>
+                <div class="space-y-3">
+                    <div>
+                        <label class="block text-xs font-medium text-slate-400 mb-1">وقت وتاريخ المحاضرة:</label>
+                        <input type="text" id="edit-time" placeholder="مثال: السبت الساعة 4:30 عصراً" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500/50">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-400 mb-1">عنوان الدرس القادم:</label>
+                        <input type="text" id="edit-next-lesson" placeholder="مثال: الفصل الرابع (المحاليل)" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500/50">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-400 mb-1">تنبيهات وملاحظات المدرس للطلاب:</label>
+                        <textarea id="edit-notes" rows="3" placeholder="مثال: يرجى جلب دفتر الواجبات للمراجعة..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500/50 resize-none"></textarea>
+                    </div>
+                    <button onclick="saveTeacherChanges()" class="w-full bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-black text-sm py-3 rounded-xl shadow-lg transition-colors mt-2">🚀 حفظ ونشر التعديل حياً</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script type="module">
+        // جلب مكتبات Firebase الرسمية عبر السحابة (CDN)
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        // 🔥 مفاتيح ربط مشروعك السحابي من الصورة بدقة كاملة:
+        const firebaseConfig = {
+            apiKey: "AIzaSyAqYP4DZxKo9q6FTsyUSgKBK15nZSS5LZk",
+            authDomain: "karbala-institutes.firebaseapp.com",
+            projectId: "karbala-institutes",
+            storageBucket: "karbala-institutes.firebasestorage.app",
+            messagingSenderId: "665994140517",
+            appId: "1:665994140517:web:e5f2899539dd62b0a45f3e",
+            measurementId: "G-H3G8GR6K51"
+        };
+
+        // تهيئة Firebase والوصول لقاعدة البيانات Firestore
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // متغيرات النظام العامة لربط الواجهات
+        window.currentInstitute = '';
+        window.currentStage = '';
+        window.currentEditingSubject = '';
+
+        // كلمات مرور دخول المعاهد (محلية للتجربة)
+        const institutePasswords = {
+            'دار العلم': 'dar123',
+            'الإسكان': 'iskan123',
+            'الأوائل': 'awail123',
+            'بابليون': 'babilon123'
+        };
+
+        const subjectsList = ['كيمياء', 'فيزياء', 'احياء', 'اللغة العربية', 'الاجتماعيات', 'رياضيات', 'انكليزي'];
+        let scheduleData = {};
+
+        // دالة الاستماع والربط الحي مع السيرفر السحابي (Real-time Snapshot)
+        function listenToScheduleUpdates() {
+            // المعرّف الفريد للجدول يتكون من (اسم المعهد + المرحلة الدراسية) لفرز البيانات بالسيرفر
+            const docId = `${window.currentInstitute}_${window.currentStage}`;
+            
+            onSnapshot(doc(db, "schedules", docId), (docSnap) => {
+                if (docSnap.exists()) {
+                    scheduleData = docSnap.data();
+                } else {
+                    // إذا كان الجدول جديداً وغير مخزن سابقاً بالداتابيز، ننشئ كائن افتراضي فارغ
+                    scheduleData = {};
+                    subjectsList.forEach(sub => {
+                        scheduleData[sub] = { time: "لم يحدد بعد", nextLesson: "-", notes: "سيتوفر الجدول قريباً" };
+                    });
+                }
+                renderTable();
+            });
+        }
+
+        // بناء وعرض أسطر جدول المواد حياً على الشاشة
+        window.renderTable = function() {
+            const tbody = document.getElementById('table-body');
+            tbody.innerHTML = '';
+            
+            subjectsList.forEach(sub => {
+                const data = scheduleData[sub] || { time: "لم يحدد بعد", nextLesson: "-", notes: "سيتوفر الجدول قريباً" };
+                const tr = document.createElement('tr');
+                tr.className = "border-b border-slate-800/50 hover:bg-slate-800/20 transition-colors";
+                tr.innerHTML = `
+                    <td class="p-4 font-bold text-slate-200">
+                        <span class="bg-slate-800 border border-slate-700/80 text-amber-400 text-xs px-2.5 py-1 rounded-md ml-2">${sub}</span>
+                    </td>
+                    <td class="p-4 text-sm text-slate-300 font-medium">${data.time}</td>
+                    <td class="p-4 text-sm text-emerald-400 font-semibold">${data.nextLesson}</td>
+                    <td class="p-4 text-xs text-slate-400 max-w-xs leading-relaxed">${data.notes}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+       // التحكم بحركة واجهات المنصة
+        window.askForInstitutePassword = function(name) {
+            window.currentInstitute = name;
+            document.getElementById('auth-institute-name').innerText = name;
+            document.getElementById('institute-password-input').value = '';
+            document.getElementById('institute-auth-modal').classList.remove('hidden');
+        }
+
+        window.closeAuthModal = function() { document.getElementById('institute-auth-modal').classList.add('hidden'); }
+
+        window.verifyInstitutePassword = function() {
+            const enteredPass = document.getElementById('institute-password-input').value;
+            if (enteredPass === institutePasswords[window.currentInstitute]) {
+                closeAuthModal();
+                document.getElementById('current-institute-badge').innerText = "معهد " + window.currentInstitute;
+                document.getElementById('institutes-section').classList.add('hidden');
+                document.getElementById('stages-section').classList.remove('hidden');
+            } else {
+                alert(`⚠️ الرمز السري للمعهد غير صحيح، حاول مجدداً!`);
+            }
+        }
+
+        window.backToInstitutes = function() {
+            document.getElementById('current-institute-badge').innerText = "تصفح عام للطلاب";
+            document.getElementById('stages-section').classList.add('hidden');
+            document.getElementById('institutes-section').classList.remove('hidden');
+        }
+
+        window.showTable = function(stageName) {
+            window.currentStage = stageName;
+            document.getElementById('table-title').innerText = `🗓️ جدول مواد الصف ${stageName} - معهد ${window.currentInstitute}`;
+            document.getElementById('stages-section').classList.add('hidden');
+            document.getElementById('table-section').classList.remove('hidden');
+            
+            // تفعيل نظام الاستماع السحابي الحي للجدول المطلوب فوراً
+            listenToScheduleUpdates();
+        }
+
+        window.backToStages = function() {
+            document.getElementById('table-section').classList.add('hidden');
+            document.getElementById('stages-section').classList.remove('hidden');
+        }
+
+        window.openTeacherModal = function() {
+            document.getElementById('teacher-modal').classList.remove('hidden');
+            document.getElementById('teacher-login-form').classList.remove('hidden');
+            document.getElementById('teacher-edit-form').classList.add('hidden');
+            document.getElementById('subject-password').value = '';
+        }
+
+        window.closeTeacherModal = function() { document.getElementById('teacher-modal').classList.add('hidden'); }
+
+        window.verifyTeacher = function() {
+            const password = document.getElementById('subject-password').value;
+            const selectedSubject = document.getElementById('teacher-subject-select').value;
+            
+            if (password === '1234') { 
+                window.currentEditingSubject = selectedSubject;
+                document.getElementById('editing-subject-title').innerText = selectedSubject;
+                
+                const currentSubData = scheduleData[selectedSubject] || { time: "", nextLesson: "", notes: "" };
+                document.getElementById('edit-time').value = currentSubData.time;
+                document.getElementById('edit-next-lesson').value = currentSubData.nextLesson;
+                document.getElementById('edit-notes').value = currentSubData.notes;
+                
+                document.getElementById('teacher-login-form').classList.add('hidden');
+                document.getElementById('teacher-edit-form').classList.remove('hidden');
+            } else {
+                alert('⚠️ رمز مادة التدريس الخاطئ!');
+            }
+        }
+
+        window.saveTeacherChanges = async function() {
+            if (!window.currentInstitute || !window.currentStage) {
+                alert("⚠️ يرجى اختيار معهد ومرحلة دراسية أولاً من الواجهة الرئيسية قبل تعديل المدرس!");
+                return;
+            }
+
+            const selectedSubject = window.currentEditingSubject;
+            
+            if(!scheduleData[selectedSubject]) scheduleData[selectedSubject] = {};
+            scheduleData[selectedSubject].time = document.getElementById('edit-time').value;
+            scheduleData[selectedSubject].nextLesson = document.getElementById('edit-next-lesson').value;
+            scheduleData[selectedSubject].notes = document.getElementById('edit-notes').value;
+
+            const docId = `${window.currentInstitute}_${window.currentStage}`;
+            try {
+                await setDoc(doc(db, "schedules", docId), scheduleData);
+                alert(`🚀 تم تحديث ونشر جدول مادة (${selectedSubject}) بنجاح!`);
+                closeTeacherModal();
+            } catch (error) {
+                console.error("Firebase Error:", error);
+                alert("حدث خطأ في الاتصال السحابي أثناء حفظ البيانات بالسيرفر!");
+            }
+        }
+    </script>
+</body>
+</html>
